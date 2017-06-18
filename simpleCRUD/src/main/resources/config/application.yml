@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/simple_crud
+    username: empUser
+    password: emppass
+    driverClassName: com.mysql.jdbc.Driver

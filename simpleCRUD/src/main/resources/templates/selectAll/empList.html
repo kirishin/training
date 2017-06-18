@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<table class="table table-sprite">
+		<tr><th>ID</th><th>NAME</th><th>DEPT</th></tr>
+		<tr th:each="emp : ${list}" th:object="${emp}">
+			<td th:text="*{id}">1</td>
+			<td th:text="*{name}">タイトル1</td>
+			<td th:text="*{dept.name}">5</td>
+		</tr>
+	</table>
+</body>
+</html>

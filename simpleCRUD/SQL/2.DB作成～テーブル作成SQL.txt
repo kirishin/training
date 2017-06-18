@@ -1,0 +1,31 @@
+CREATE DATABASE simple_crud;
+USE simple_crud;
+
+create table dept(
+	id int NOT NULL PRIMARY KEY auto_increment
+	,name varchar(10)
+	
+	,index(id)
+) engine=InnoDB;
+
+create table emp(
+	id int NOT NULL PRIMARY KEY auto_increment
+	,name varchar(15) not null
+	,dept_id int
+	,working int not null
+
+	,index(id)
+	,FOREIGN KEY(dept_id)
+		REFERENCES dept(id)
+) engine=InnoDB;
+
+create table timecard(
+	id int NOT NULL PRIMARY KEY auto_increment
+	,emp_id int 
+	,intime DATETIME DEFAULT NULL
+	,outtime DATETIME DEFAULT NULL
+	
+	,FOREIGN KEY(emp_id)
+		REFERENCES emp(id)
+) engine=InnoDB;
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="crud/common/header :: commonHeader">
+<meta charset="utf-8" />
+</head>
+
+<body>
+	<div class="container" th:fragment="selectMemeberForm">
+
+		<form role="form" action="#" th:action="@{/__${requestFormPath}__}"
+			th:object="${selectMemberForm}" method="post">
+
+			<div class="form-group">
+				<label>id</label>
+				<input type="text" th:field="*{id}" name="id" size="15" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label>name</label>
+				<input type="text" th:field="*{name}" name="name" size="15" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label>birthday</label>
+				<input type="text" th:value="*{birthdayMin}" name="birthdayMin" size="15" class="form-control" />~
+				<input type="text" th:value="*{birthdayMax}" name="birthdayMax" size="15" class="form-control" />
+			</div>
+			<div class="form-group">
+			</div>
+			<input type="submit" value="送信" name="selectMemberForm" />
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+<span th:object="${IOForm}">
+str = <span th:text="*{str}">a</span>
+methodType = <span th:text="*{methodType}">a</span>
+
+</span>
+
+</body>
+</html>

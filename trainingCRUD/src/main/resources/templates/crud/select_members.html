@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="crud/common/header :: commonHeader">
+<meta charset="utf-8" />
+</head>
+
+<body>
+	<span th:text="${comment}"></span>
+	<a th:href="@{/crud/insert/input}"><button type="button" class="btn btn-success">登録</button></a>
+	<div class="container" th:include="crud/common/form/select_member_form :: selectMemeberForm"></div>
+	<div class="container" th:include="crud/common/list/member_list :: memberList"></div>
+	<br />
+</body>
+</html>
