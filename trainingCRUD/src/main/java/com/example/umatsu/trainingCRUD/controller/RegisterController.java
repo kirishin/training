@@ -1,6 +1,5 @@
 package com.example.umatsu.trainingCRUD.controller;
 
-
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class RegisterController {
 		insertMember(form);
 		//謎コード？
 //		selectAll(model);
-		return PathConst.SELECT_MEMBERS;
+		return PathConst.REDIRECT_SELECT_MEMBERS;
 	}
 	
 	/**

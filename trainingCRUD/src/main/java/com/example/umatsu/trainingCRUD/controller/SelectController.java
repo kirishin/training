@@ -28,7 +28,7 @@ public class SelectController {
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value="/" ,method=RequestMethod.POST)
+	@RequestMapping(value="/")
 	public String selectAll(Model model) {
 		addInstanceMessage(model, "全権検索をしました");
 		return selectAll(model, new SelectMemberForm());
@@ -39,7 +39,7 @@ public class SelectController {
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(params="/selectMemberForm", method=RequestMethod.POST)
+	@RequestMapping(value="/", params="selectMemberForm", method=RequestMethod.POST)
 	public String selectAll(Model model ,SelectMemberForm form) {
 		
 		selictMember(model, form);
