@@ -18,8 +18,9 @@ import com.example.umatsu.trainingCRUD.form.SelectMemberForm;
 import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
 import com.example.umatsu.trainingCRUD.model.TbMember;
 
-@Controller
-@RequestMapping("/")
+//一時使用停止
+//@Controller
+//@RequestMapping("/")
 public class RootController {
 	@Autowired
 	private TbMemberMapper mapper;
