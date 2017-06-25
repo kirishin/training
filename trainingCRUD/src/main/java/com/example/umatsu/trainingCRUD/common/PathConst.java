@@ -5,7 +5,7 @@ public class PathConst {
 	
 	//htmlのパス
 	public static String SELECT_MEMBERS = "/crud/select_members";
-	public static String FORM = "/crud/member_form";
+	public static String FORM = "/crud/common/form/input_member_form";
 	public static String CONFIRM = "/crud/member_confirm";
 
 	//リダイレクト用URL
