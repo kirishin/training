@@ -34,7 +34,7 @@ public class RegisterController {
 		putTitle(mav ,"登録フォーム");
 		mav.addObject("member" ,form);
 		
-		mav.setViewName(PathConst.FORM);
+		mav.setViewName(PathConst.INPUT_FORM);
 		
 		return mav;
 	}

@@ -31,7 +31,7 @@ public class UpdateController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("requestPath", "crud/update/confirm");
 		setMember(mav ,form);
-		mav.setViewName(PathConst.FORM);
+		mav.setViewName(PathConst.INPUT_FORM);
 		return mav;
 	}
 	/** 更新機能確認ト画面への遷移
