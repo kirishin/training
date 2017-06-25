@@ -4,16 +4,14 @@ import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.umatsu.trainingCRUD.common.PathConst;
+import com.example.umatsu.trainingCRUD.common.RequestPathConst;
+import com.example.umatsu.trainingCRUD.common.ResourcePathConst;
 import com.example.umatsu.trainingCRUD.form.MemberForm;
 import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
 import com.example.umatsu.trainingCRUD.model.TbMember;
-
-import lombok.extern.log4j.Log4j;
 
 @Controller
 public class RegisterController {
@@ -30,11 +28,27 @@ public class RegisterController {
 
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("requestPath", "crud/insert/complete");
+		mav.addObject("requestPath", RequestPathConst.REQUEST_REGISTER_CONFIRM);
 		putTitle(mav ,"登録フォーム");
 		mav.addObject("member" ,form);
 		
-		mav.setViewName(PathConst.INPUT_FORM);
+		mav.setViewName(ResourcePathConst.INPUT_FORM);
+		
+		return mav;
+	}
+	/**　登録機能実行
+	 * @param mav
+	 * @param form
+	 * @return
+	 */
+	@RequestMapping("/crud/insert/confirm")
+	public ModelAndView insertConfirm(MemberForm form) {
+
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("requestPath", RequestPathConst.REQUEST_REGISTER_COMPLETE);
+		mav.addObject("member" ,form);
+		mav.setViewName(ResourcePathConst.VIEW_FORM);
 		
 		return mav;
 	}
@@ -49,10 +63,7 @@ public class RegisterController {
 		ModelAndView mav = new ModelAndView();
 
 		insertMember(form);
-		//謎コード？
-//		selectAll(mav);
-		
-		mav.setViewName(PathConst.REDIRECT_SELECT_MEMBERS);
+		mav.setViewName(RequestPathConst.REDIRECT_SELECT_MEMBERS);
 		
 		return mav;
 	}
