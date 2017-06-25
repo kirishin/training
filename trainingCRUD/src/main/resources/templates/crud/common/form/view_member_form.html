@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="crud/common/header :: commonHeader">
+<meta charset="utf-8" />
+</head>
+
+<body>
+	<div class="container">
+		<h2 th:text="${instanceMessage}"></h2>
+
+		<table th:object="${member}" class="table table-bordered ">
+			<tr>
+				<td>name</td><td th:text="*{name}" />
+			</tr>
+			<tr>
+				<td>birthday</td> <td th:text="*{birthday}" />
+			</tr>
+		</table>
+		<form role="form" action="#" th:action="@{__${requestPath}__}"
+			th:object="${member}" method="post">
+			<input type="hidden" th:field="*{id}" name="id" />
+			<input type="hidden" th:field="*{name}" name="name" />
+			<input type="hidden" th:field="*{birthday}" name="birthday" />
+			<input type="submit" value="確定" class="btn btn-success" />
+		</form>
+	</div>
+</body>
+</html>
