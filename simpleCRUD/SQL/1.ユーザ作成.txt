@@ -1,1 +1,2 @@
 CREATE USER empUser IDENTIFIED BY 'emppass';
+GRANT all ON *.* TO empUser;

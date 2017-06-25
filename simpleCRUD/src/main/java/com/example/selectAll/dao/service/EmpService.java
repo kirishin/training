@@ -20,5 +20,9 @@ public class EmpService {
 	public List<Emp> selectAll() {
 		return repository.findAll(new Sort(Sort.Direction.ASC, "id"));
 	}
+	
+	public List<Emp> selectEmp(String name){
+		return repository.findEmp(name);
+	}
 
 }

@@ -38,6 +38,12 @@ public class SearchController {
 		return PATH_SELECT_EMP;
 	}
 
+	@RequestMapping(value="/emps", method=RequestMethod.GET)
+	public String selectEmps(Model model, String name){
+		model.addAttribute("list", empService.selectEmp(name));
+		return PATH_SELECT_EMP;
+	}
+
 	@RequestMapping(value="/dept", method=RequestMethod.GET)
 	public String selectDept(Model model){
 		model.addAttribute("list", deptService.selectAll());
