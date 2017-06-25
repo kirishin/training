@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.umatsu.trainingCRUD.common.PathConst;
 import com.example.umatsu.trainingCRUD.form.MemberForm;
@@ -26,10 +27,12 @@ public class UpdateController {
 	 * @return
 	 */
 	@RequestMapping("/crud/update/input")
-	public String updateInsert(Model model, MemberForm form) {
-		model.addAttribute("requestPath", "crud/update/confirm");
-		setMember(model ,form);
-		return PathConst.FORM;
+	public ModelAndView updateInsert(MemberForm form) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("requestPath", "crud/update/confirm");
+		setMember(mav ,form);
+		mav.setViewName(PathConst.FORM);
+		return mav;
 	}
 	/** 更新機能確認ト画面への遷移
 	 * @param model
@@ -37,8 +40,9 @@ public class UpdateController {
 	 * @return
 	 */
 	@RequestMapping("/crud/update/confirm")
-	public String updateConfirm(Model model, MemberForm form) {
-		return updateComplete(model, form);
+	public ModelAndView updateConfirm(MemberForm form) {
+//		ModelAndView mav = new ModelAndView();
+		return updateComplete(form);
 	}
 	
 	/** 更新機能実行後・全権検索・リスト画面への遷移
@@ -47,9 +51,11 @@ public class UpdateController {
 	 * @return
 	 */
 	@RequestMapping(value = "/crud/update/complete", method = RequestMethod.POST)
-	public String updateComplete(Model model, MemberForm form) {
+	public ModelAndView updateComplete(MemberForm form) {
+		ModelAndView mav = new ModelAndView();
 		updateMember(form);
-		return PathConst.REDIRECT_SELECT_MEMBERS;
+		mav.setViewName(PathConst.REDIRECT_SELECT_MEMBERS);
+		return mav;
 	}
 
 	/**
@@ -71,10 +77,10 @@ public class UpdateController {
 	 * 
 	 * @param model
 	 */
-	protected void setMember(Model model, MemberForm form) {
+	protected void setMember(ModelAndView mav, MemberForm form) {
 		TbMember member = mapper.selectByPrimaryKey(Integer.parseInt(form.getId()));
 		form = setForm(member);
-		model.addAttribute("member", form);
+		mav.addObject("member", form);
 	}
 
 	protected void updateMember(MemberForm form) {

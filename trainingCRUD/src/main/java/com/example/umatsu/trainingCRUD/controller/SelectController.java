@@ -1,15 +1,14 @@
 package com.example.umatsu.trainingCRUD.controller;
 
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.umatsu.trainingCRUD.common.PathConst;
 import com.example.umatsu.trainingCRUD.form.MemberForm;
@@ -22,71 +21,83 @@ public class SelectController {
 	@Autowired
 	private TbMemberMapper mapper;
 
-
-	/** 全権検索実行・リスト画面への遷移
-	 * @param model
+	/**
+	 * 全権検索実行・リスト画面への遷移
+	 * 
+	 * @param mav
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value="/")
-	public String selectAll(Model model) {
-		addInstanceMessage(model, "全権検索をしました");
-		return selectAll(model, new SelectMemberForm());
+	@RequestMapping(value = "/")
+	public ModelAndView selectAll() {
+
+		ModelAndView mav = new ModelAndView();
+
+		addInstanceMessage(mav, "全権検索をしました");
+
+		return selectAll(new SelectMemberForm());
+
 	}
+
 	/**
-	 * @param model
+	 * @param mav
 	 * @param form
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value="/", params="selectMemberForm", method=RequestMethod.POST)
-	public String selectAll(Model model ,SelectMemberForm form) {
+	@RequestMapping(value = "/", params = "selectMemberForm", method = RequestMethod.POST)
+	public ModelAndView selectAll(SelectMemberForm form) {
+
+		ModelAndView mav = new ModelAndView();
+
+		selictMember(mav, form);
+		mav.addObject("selectMemberForm", form);
+		mav.addObject("requestFormPath", "");
+		addInstanceMessage(mav, "検索をしました");
 		
-		selictMember(model, form);
-		model.addAttribute("selectMemberForm", form);
-		model.addAttribute("requestFormPath" ,"");
-		addInstanceMessage(model, "検索をしました");
-		return PathConst.SELECT_MEMBERS;
+		mav.setViewName(PathConst.SELECT_MEMBERS);
+		
+		return mav;
 	}
-	
+
 	/**
 	 * 画面へのインスタンスメッセージ表示用(使わないかも)
 	 * 
-	 * @param model
+	 * @param mav
 	 * @param message
 	 */
-	protected void addInstanceMessage(Model model, String message) {
-		model.addAttribute("instanceMessage", message);
+	protected void addInstanceMessage(ModelAndView mav, String message) {
+		mav.addObject("instanceMessage", message);
 	}
 
-	protected void putTitle(Model model, String title) {
-		model.addAttribute("title", title);
+	protected void putTitle(ModelAndView mav, String title) {
+		mav.addObject("title", title);
 	}
 
 	/**
 	 * 全権検索用(そのうち分けたい)
 	 * 
-	 * @param model
+	 * @param mav
 	 */
-	protected void selictMember(Model model, SelectMemberForm form) {
+	protected void selictMember(ModelAndView mav, SelectMemberForm form) {
 		List<TbMember> memberList = mapper.findMember(form);
-		model.addAttribute("memberList", memberList);
+		mav.addObject("memberList", memberList);
 	}
 
 	/**
 	 * 全権検索用(そのうち分けたい)
 	 * 
-	 * @param model
+	 * @param mav
 	 */
-	protected void setMember(Model model, MemberForm form) {
+	protected void setMember(ModelAndView mav, MemberForm form) {
 		TbMember member = mapper.selectByPrimaryKey(Integer.parseInt(form.getId()));
 		form = setForm(member);
-		model.addAttribute("member", form);
+		mav.addObject("member", form);
 	}
 
 	private MemberForm setForm(TbMember member) {
 		MemberForm form = new MemberForm();
-		form.setId(""+member.getId());
+		form.setId("" + member.getId());
 		form.setName(member.getName());
 		form.setBirthday(new SimpleDateFormat("yyyy/MM/dd").format(member.getBirthday()));
 		return form;

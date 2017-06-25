@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.umatsu.trainingCRUD.common.PathConst;
 import com.example.umatsu.trainingCRUD.form.MemberForm;
 import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
 import com.example.umatsu.trainingCRUD.model.TbMember;
+
+import lombok.extern.log4j.Log4j;
 
 @Controller
 public class RegisterController {
@@ -18,42 +21,54 @@ public class RegisterController {
 	private TbMemberMapper mapper;
 
 	/**　登録機能インプット画面への遷移
-	 * @param model
+	 * @param mav
 	 * @param form
 	 * @return
 	 */
 	@RequestMapping("/crud/insert/input")
-	public String insertInsert(Model model, MemberForm form) {
-		model.addAttribute("requestPath", "crud/insert/complete");
-		putTitle(model ,"登録フォーム");
-		model.addAttribute("member" ,form);
-		return PathConst.FORM;
+	public ModelAndView insertInsert(MemberForm form) {
+
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("requestPath", "crud/insert/complete");
+		putTitle(mav ,"登録フォーム");
+		mav.addObject("member" ,form);
+		
+		mav.setViewName(PathConst.FORM);
+		
+		return mav;
 	}
 	/**　登録機能実行
-	 * @param model
+	 * @param mav
 	 * @param form
 	 * @return
 	 */
 	@RequestMapping("/crud/insert/complete")
-	public String insertComplete(Model model, MemberForm form) {
+	public ModelAndView insertComplete(MemberForm form) {
+
+		ModelAndView mav = new ModelAndView();
+
 		insertMember(form);
 		//謎コード？
-//		selectAll(model);
-		return PathConst.REDIRECT_SELECT_MEMBERS;
+//		selectAll(mav);
+		
+		mav.setViewName(PathConst.REDIRECT_SELECT_MEMBERS);
+		
+		return mav;
 	}
 	
 	/**
 	 * 画面へのインスタンスメッセージ表示用(使わないかも)
 	 * 
-	 * @param model
+	 * @param mav
 	 * @param message
 	 */
-	protected void addInstanceMessage(Model model, String message) {
-		model.addAttribute("instanceMessage", message);
+	protected void addInstanceMessage(ModelAndView mav, String message) {
+		mav.addObject("instanceMessage", message);
 	}
 
-	protected void putTitle(Model model, String title) {
-		model.addAttribute("title", title);
+	protected void putTitle(ModelAndView mav, String title) {
+		mav.addObject("title", title);
 	}
 
 	protected void insertMember(MemberForm form) {
