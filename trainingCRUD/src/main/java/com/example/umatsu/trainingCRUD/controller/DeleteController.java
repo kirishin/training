@@ -7,26 +7,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.umatsu.trainingCRUD.common.PathConst;
+import com.example.umatsu.trainingCRUD.common.RequestPathConst;
+import com.example.umatsu.trainingCRUD.common.ResourcePathConst;
+import com.example.umatsu.trainingCRUD.controller.service.CRUDService;
 import com.example.umatsu.trainingCRUD.form.MemberForm;
-import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
-import com.example.umatsu.trainingCRUD.model.TbMember;
 
 @Controller
 public class DeleteController {
+
 	@Autowired
-	private TbMemberMapper mapper;
+	CRUDService crud;
 
 	/** 削除機能（実行？）
 	 * @param mav
 	 * @return
 	 */
 	@RequestMapping(value="/crud/delete/confirm" ,method=RequestMethod.POST)
-	public ModelAndView deleteConfirm(ModelAndView mav ,MemberForm form) {
+	public ModelAndView deleteConfirm(MemberForm form) {
 
-//		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("requestPath", RequestPathConst.REQUEST_DELETE_COMPLETE);
+		mav.addObject("member", crud.selectMember(form));
+		mav.setViewName(ResourcePathConst.VIEW_FORM);
 
-		return deleteComplete(form);
+		return mav;
 	}
 	/** 削除機能（実行？）
 	 * @param mav
@@ -37,9 +41,9 @@ public class DeleteController {
 
 		ModelAndView mav = new ModelAndView();
 
-		deleteMember(form);
+		crud.deleteMember(form);
 		
-		mav.setViewName(PathConst.REDIRECT_SELECT_MEMBERS);
+		mav.setViewName(RequestPathConst.REDIRECT_SELECT_MEMBERS);
 		return mav;
 	}
 	
@@ -57,10 +61,4 @@ public class DeleteController {
 		mav.addObject("title", title);
 	}
 
-	protected void deleteMember(MemberForm form) {
-		TbMember tbMember = new TbMember();
-		tbMember.setId(Integer.parseInt(form.getId()));
-		tbMember.setDeleteFlag(1);
-		mapper.updateByPrimaryKeySelective(tbMember);
-	}
 }
