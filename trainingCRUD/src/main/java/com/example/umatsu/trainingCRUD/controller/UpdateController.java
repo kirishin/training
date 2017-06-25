@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.umatsu.trainingCRUD.common.PathConst;
+import com.example.umatsu.trainingCRUD.common.RequestPathConst;
+import com.example.umatsu.trainingCRUD.common.ResourcePathConst;
 import com.example.umatsu.trainingCRUD.form.MemberForm;
 import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
 import com.example.umatsu.trainingCRUD.model.TbMember;
@@ -31,7 +32,7 @@ public class UpdateController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("requestPath", "crud/update/confirm");
 		setMember(mav ,form);
-		mav.setViewName(PathConst.INPUT_FORM);
+		mav.setViewName(ResourcePathConst.INPUT_FORM);
 		return mav;
 	}
 	/** 更新機能確認ト画面への遷移
@@ -54,7 +55,7 @@ public class UpdateController {
 	public ModelAndView updateComplete(MemberForm form) {
 		ModelAndView mav = new ModelAndView();
 		updateMember(form);
-		mav.setViewName(PathConst.REDIRECT_SELECT_MEMBERS);
+		mav.setViewName(RequestPathConst.REDIRECT_SELECT_MEMBERS);
 		return mav;
 	}
 
