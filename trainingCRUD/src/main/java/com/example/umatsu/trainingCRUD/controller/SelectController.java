@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.umatsu.trainingCRUD.common.PathConst;
+import com.example.umatsu.trainingCRUD.common.ResourcePathConst;
 import com.example.umatsu.trainingCRUD.form.MemberForm;
 import com.example.umatsu.trainingCRUD.form.SelectMemberForm;
 import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
@@ -52,10 +52,10 @@ public class SelectController {
 
 		selictMember(mav, form);
 		mav.addObject("selectMemberForm", form);
-		mav.addObject("requestFormPath", "");
+		mav.addObject("requestFormPath", "/");
 		addInstanceMessage(mav, "検索をしました");
 		
-		mav.setViewName(PathConst.SELECT_MEMBERS);
+		mav.setViewName(ResourcePathConst.SELECT_MEMBERS);
 		
 		return mav;
 	}
