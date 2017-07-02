@@ -1,7 +1,5 @@
 package com.example.umatsu.trainingCRUD.controller;
 
-import java.sql.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +8,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.umatsu.trainingCRUD.common.RequestPathConst;
 import com.example.umatsu.trainingCRUD.common.ResourcePathConst;
 import com.example.umatsu.trainingCRUD.form.MemberForm;
-import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
-import com.example.umatsu.trainingCRUD.model.TbMember;
+import com.example.umatsu.trainingCRUD.service.CRUDService;
 
 @Controller
 public class RegisterController {
+
 	@Autowired
-	private TbMemberMapper mapper;
+	CRUDService crudService;
 
 	/**　登録機能インプット画面への遷移
 	 * @param mav
@@ -62,7 +60,7 @@ public class RegisterController {
 
 		ModelAndView mav = new ModelAndView();
 
-		insertMember(form);
+		crudService.insertMember(form);
 		mav.setViewName(RequestPathConst.REDIRECT_SELECT_MEMBERS);
 		
 		return mav;
@@ -80,22 +78,5 @@ public class RegisterController {
 
 	protected void putTitle(ModelAndView mav, String title) {
 		mav.addObject("title", title);
-	}
-
-	protected void insertMember(MemberForm form) {
-		TbMember tbMember = setBean(form);
-		tbMember.setId(null);
-		mapper.insertSelective(tbMember);
-	}
-
-	private TbMember setBean(MemberForm form) {
-		TbMember tbMember = new TbMember();
-		try {
-			tbMember.setId(Integer.parseInt(form.getId()));
-		} catch (Exception e) {
-		}
-		tbMember.setName(form.getName());
-		tbMember.setBirthday(Date.valueOf(form.getBirthday().replaceAll("/", "-")));
-		return tbMember;
 	}
 }

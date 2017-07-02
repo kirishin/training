@@ -15,14 +15,15 @@ import com.example.umatsu.trainingCRUD.form.MemberForm;
 import com.example.umatsu.trainingCRUD.form.SelectMemberForm;
 import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
 import com.example.umatsu.trainingCRUD.model.TbMember;
+import com.example.umatsu.trainingCRUD.service.CRUDService;
 
 @Controller
 public class SelectController {
 	@Autowired
-	private TbMemberMapper mapper;
+	private CRUDService crudService;
 
 	/**
-	 * 全権検索実行・リスト画面への遷移
+	 * 全件検索実行・リスト画面への遷移
 	 * 
 	 * @param mav
 	 * @return
@@ -32,15 +33,13 @@ public class SelectController {
 	public ModelAndView selectAll() {
 
 		ModelAndView mav = new ModelAndView();
-
-		addInstanceMessage(mav, "全権検索をしました");
+		addInstanceMessage(mav, "全件検索をしました");
 
 		return selectAll(new SelectMemberForm());
 
 	}
 
 	/**
-	 * @param mav
 	 * @param form
 	 * @return
 	 */
@@ -50,13 +49,13 @@ public class SelectController {
 
 		ModelAndView mav = new ModelAndView();
 
-		selictMember(mav, form);
+		mav.addObject("memberList", crudService.selictMembers(form));
 		mav.addObject("selectMemberForm", form);
 		mav.addObject("requestFormPath", "/");
 		addInstanceMessage(mav, "検索をしました");
-		
+
 		mav.setViewName(ResourcePathConst.SELECT_MEMBERS);
-		
+
 		return mav;
 	}
 
@@ -73,34 +72,4 @@ public class SelectController {
 	protected void putTitle(ModelAndView mav, String title) {
 		mav.addObject("title", title);
 	}
-
-	/**
-	 * 全権検索用(そのうち分けたい)
-	 * 
-	 * @param mav
-	 */
-	protected void selictMember(ModelAndView mav, SelectMemberForm form) {
-		List<TbMember> memberList = mapper.findMember(form);
-		mav.addObject("memberList", memberList);
-	}
-
-	/**
-	 * 全権検索用(そのうち分けたい)
-	 * 
-	 * @param mav
-	 */
-	protected void setMember(ModelAndView mav, MemberForm form) {
-		TbMember member = mapper.selectByPrimaryKey(Integer.parseInt(form.getId()));
-		form = setForm(member);
-		mav.addObject("member", form);
-	}
-
-	private MemberForm setForm(TbMember member) {
-		MemberForm form = new MemberForm();
-		form.setId("" + member.getId());
-		form.setName(member.getName());
-		form.setBirthday(new SimpleDateFormat("yyyy/MM/dd").format(member.getBirthday()));
-		return form;
-	}
-
 }

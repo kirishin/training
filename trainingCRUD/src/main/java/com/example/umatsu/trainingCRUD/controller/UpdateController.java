@@ -1,9 +1,6 @@
 package com.example.umatsu.trainingCRUD.controller;
 
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.umatsu.trainingCRUD.common.RequestPathConst;
 import com.example.umatsu.trainingCRUD.common.ResourcePathConst;
 import com.example.umatsu.trainingCRUD.form.MemberForm;
-import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
-import com.example.umatsu.trainingCRUD.model.TbMember;
+import com.example.umatsu.trainingCRUD.service.CRUDService;
 
 @Controller
 public class UpdateController {
 	@Autowired
-	private TbMemberMapper mapper;
+	private CRUDService crudService;
 
 	/** 更新機能インプット画面への遷移
 	 * @param model
@@ -30,9 +26,11 @@ public class UpdateController {
 	@RequestMapping("/crud/update/input")
 	public ModelAndView updateInsert(MemberForm form) {
 		ModelAndView mav = new ModelAndView();
+
 		mav.addObject("requestPath", "crud/update/confirm");
-		setMember(mav ,form);
+		mav.addObject("member", crudService.selectMember(form));
 		mav.setViewName(ResourcePathConst.INPUT_FORM);
+
 		return mav;
 	}
 	/** 更新機能確認ト画面への遷移
@@ -54,7 +52,7 @@ public class UpdateController {
 	@RequestMapping(value = "/crud/update/complete", method = RequestMethod.POST)
 	public ModelAndView updateComplete(MemberForm form) {
 		ModelAndView mav = new ModelAndView();
-		updateMember(form);
+		crudService.updateMember(form);
 		mav.setViewName(RequestPathConst.REDIRECT_SELECT_MEMBERS);
 		return mav;
 	}
@@ -72,40 +70,4 @@ public class UpdateController {
 	protected void putTitle(Model model, String title) {
 		model.addAttribute("title", title);
 	}
-
-	/**
-	 * 全権検索用(そのうち分けたい)
-	 * 
-	 * @param model
-	 */
-	protected void setMember(ModelAndView mav, MemberForm form) {
-		TbMember member = mapper.selectByPrimaryKey(Integer.parseInt(form.getId()));
-		form = setForm(member);
-		mav.addObject("member", form);
-	}
-
-	protected void updateMember(MemberForm form) {
-		TbMember tbMember = setBean(form);
-		mapper.updateByPrimaryKeySelective(tbMember);
-	}
-
-	private TbMember setBean(MemberForm form) {
-		TbMember tbMember = new TbMember();
-		try {
-			tbMember.setId(Integer.parseInt(form.getId()));
-		} catch (Exception e) {
-		}
-		tbMember.setName(form.getName());
-		tbMember.setBirthday(Date.valueOf(form.getBirthday().replaceAll("/", "-")));
-		return tbMember;
-	}
-
-	private MemberForm setForm(TbMember member) {
-		MemberForm form = new MemberForm();
-		form.setId(""+member.getId());
-		form.setName(member.getName());
-		form.setBirthday(new SimpleDateFormat("yyyy/MM/dd").format(member.getBirthday()));
-		return form;
-	}
-
 }

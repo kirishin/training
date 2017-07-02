@@ -6,9 +6,9 @@ import lombok.Setter;
 @Setter
 @Getter
 public class SelectMemberForm {
-	private String id="";
-	private String name="";
-	private String birthdayMin="";
-	private String birthdayMax="";
+	private String id;
+	private String name;
+	private String birthdayMin;
+	private String birthdayMax;
 
 }
