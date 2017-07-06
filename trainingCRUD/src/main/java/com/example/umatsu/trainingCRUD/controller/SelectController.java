@@ -1,5 +1,8 @@
 package com.example.umatsu.trainingCRUD.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -17,6 +20,10 @@ import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
 import com.example.umatsu.trainingCRUD.model.TbMember;
 import com.example.umatsu.trainingCRUD.service.CRUDService;
 
+/**
+ * 検索画面用途
+ */
+@RequestMapping(value = "/search")
 @Controller
 public class SelectController {
 	@Autowired
@@ -29,7 +36,7 @@ public class SelectController {
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/", method=GET)
 	public ModelAndView selectAll() {
 
 		ModelAndView mav = new ModelAndView();
@@ -44,7 +51,7 @@ public class SelectController {
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value = "/", params = "selectMemberForm", method = RequestMethod.POST)
+	@RequestMapping(value = "/", params = "selectMemberForm", method = POST)
 	public ModelAndView selectAll(SelectMemberForm form) {
 
 		ModelAndView mav = new ModelAndView();
