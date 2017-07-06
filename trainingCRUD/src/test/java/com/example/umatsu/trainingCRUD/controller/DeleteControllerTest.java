@@ -1,7 +1,6 @@
 package com.example.umatsu.trainingCRUD.controller;
 
 import static org.junit.Assert.fail;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -22,7 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.example.umatsu.trainingCRUD.common.RequestPathConst;
 import com.example.umatsu.trainingCRUD.common.ResourcePathConst;
-import com.example.umatsu.trainingCRUD.controller.service.CRUDService;
+import com.example.umatsu.trainingCRUD.service.CRUDService;
 
 //@WebAppConfiguration
 //@ContextConfiguration(classes = TrainingCrudApplication.class)
