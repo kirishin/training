@@ -16,10 +16,10 @@ import com.example.umatsu.trainingCRUD.model.TbMember;
  * コントローラーの拡張
  * 
  * @author yanbarukuina
- * 統合の為一時非推奨設定
- *
+ * 
+ *@deprecated 統合の為一時非推奨設定
  */
-@Deprecated
+@Deprecated()
 public abstract class ExController {
 
 	@Autowired
