@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>ログイン</title>
+</head>
+<body bgcolor="#40AAEF">
+
+<h1>ユーザは2種類あります。</h1>
+<ul>
+<li>ID:admin</li>
+<li>PW:admin</li>
+</ul>
+
+<ul>
+<li>ID:user</li>
+<li>PW:user</li>
+</ul>
+
+<form id="login_form" name="f" method="post" th:action="@{'authentication'}">
+<!-- 
+  <form name="f" action="<c:url value='authentication'/>" method="post">
+ -->
+ログインID : <input type="text" name="username"></input>
+<br/>
+ログインPW : <input type="password" name="password"></input>
+<br/>
+<input type="submit" name="login" value="ログイン" />
+<input type="hidden" name="redirectTo" value="/top" />
+</form>
+
+</body>
+</html>

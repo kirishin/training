@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
-@ImportResource("classpath:applicationContext.xml")
+@ImportResource( { "classpath:applicationContext.xml", "classpath:security-context.xml" } )  
 @MapperScan("com.example.umatsu.trainingCRUD.mapper")
 @SpringBootApplication
 public class TrainingCrudApplication {
