@@ -13,12 +13,18 @@
 
         <!-- 自作の認証filterを指定します。 --> 
         <custom-filter after="FORM_LOGIN_FILTER" ref="customLoginFilter" /> 
-
+        <intercept-url pattern="/login*" access="permitAll" />
+        <intercept-url pattern="/logout*" access="permitAll" />
         <intercept-url pattern="/top*" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
         <intercept-url pattern="/admin*" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/user*" access="hasRole('ROLE_USER')" />
-
-        <access-denied-handler error-page="/403" />
+        <intercept-url pattern="/crud/delete/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/crud/update/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/crud/insert/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/crud/search/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')" />
+        
+        
+        <access-denied-handler  error-page="/403.html" />
         
         <!-- 認証のログイン処理は、自作認証を使う場合は不要です。 -->
         <!-- 
@@ -32,9 +38,12 @@
         <logout
             logout-url="/logout"
             logout-success-url="/"
-            invalidate-session="true"/>
+            delete-cookies="JSESSIONID"
+            invalidate-session="true"
+            />
         <!-- anonymousユーザのROLE -->
         <anonymous granted-authority="ROLE_ANONYMOUS" />
+        
     </http>
 
     <!-- entry-point-refは、どのパスへアクセスした時に自作認証filterを実行するのかを指定します。 --> 

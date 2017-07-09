@@ -4,7 +4,7 @@ public class RequestPathConst {
 	private RequestPathConst(){}
 	
 	//リクエスト用URL
-	public static String REDIRECT_SELECT_MEMBERS = "redirect:/";
+	public static String REDIRECT_SELECT_MEMBERS = "redirect:/crud/search/";
 
 	public static String REQUEST_REGISTER_INPUT = "/crud/insert/input";
 	public static String REQUEST_REGISTER_CONFIRM = "/crud/insert/confirm";

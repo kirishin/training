@@ -18,12 +18,9 @@
 </ul>
 
 <form id="login_form" name="f" method="post" th:action="@{'authentication'}">
-<!-- 
-  <form name="f" action="<c:url value='authentication'/>" method="post">
- -->
-ログインID : <input type="text" name="username"></input>
+ログインID : <input type="text" name="username" value="user"></input>
 <br/>
-ログインPW : <input type="password" name="password"></input>
+ログインPW : <input type="password" name="password" value="user"></input>
 <br/>
 <input type="submit" name="login" value="ログイン" />
 <input type="hidden" name="redirectTo" value="/top" />

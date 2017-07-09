@@ -28,12 +28,12 @@ public class TopController {
 		return "admin";
 	}
 
-	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	@RequestMapping(value = "/error", method = {RequestMethod.GET, RequestMethod.POST})
 	public String error() {
 		return "error";
 	}
 
-	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	@RequestMapping(value = "/403", method = {RequestMethod.GET, RequestMethod.POST})
 	public String permission() {
 		return "403";
 	}

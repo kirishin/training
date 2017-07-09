@@ -6,6 +6,11 @@
 
 <body>
 	<span th:text="${comment}"></span>
+  
+    <form role="form" action="#" th:action="@{/logout}" method="post">
+      <input type="submit" value="ログアウト" name="logout" />
+    </form>
+
 	<a th:href="@{/crud/insert/input}"><button type="button" class="btn btn-success">登録</button></a>
 	<div class="container" th:include="crud/common/form/select_member_form :: selectMemeberForm"></div>
 	<div class="container" th:include="crud/common/list/member_list :: memberList"></div>
