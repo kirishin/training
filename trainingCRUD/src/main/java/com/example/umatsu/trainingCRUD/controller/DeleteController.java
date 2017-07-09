@@ -53,7 +53,7 @@ public class DeleteController {
 
 		ModelAndView mav = new ModelAndView();
 
-		crudService.deleteMember(form.getId());
+		crudService.deleteMember(form);
 
 		mav.setViewName(RequestPathConst.REDIRECT_SELECT_MEMBERS);
 		return mav;

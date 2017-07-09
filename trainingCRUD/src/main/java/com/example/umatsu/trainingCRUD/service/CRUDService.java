@@ -58,9 +58,9 @@ public class CRUDService {
 	 * @param form
 	 * @return
 	 */
-	public boolean deleteMember(String id) {
+	public boolean deleteMember(MemberForm form) {
 		TbMember tbMember = new TbMember();
-		tbMember.setId(Integer.parseInt(id));
+		tbMember.setId(Integer.parseInt(form.getId()));
 		tbMember.setDeleteFlag(1);
 
 		return mapper.updateByPrimaryKeySelective(tbMember) == RESULT_SUCCESS;
