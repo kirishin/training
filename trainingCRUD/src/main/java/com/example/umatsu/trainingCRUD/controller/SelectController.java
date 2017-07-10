@@ -1,22 +1,22 @@
 package com.example.umatsu.trainingCRUD.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.umatsu.trainingCRUD.common.ResourcePathConst;
-import com.example.umatsu.trainingCRUD.form.MemberForm;
 import com.example.umatsu.trainingCRUD.form.SelectMemberForm;
-import com.example.umatsu.trainingCRUD.mapper.TbMemberMapper;
-import com.example.umatsu.trainingCRUD.model.TbMember;
 import com.example.umatsu.trainingCRUD.service.CRUDService;
 
+/**
+ * 検索画面用途
+ */
+@RequestMapping(value = "/crud/search")
 @Controller
 public class SelectController {
 	@Autowired
@@ -29,12 +29,12 @@ public class SelectController {
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/", method={GET, POST})
 	public ModelAndView selectAll() {
 
 		ModelAndView mav = new ModelAndView();
 		addInstanceMessage(mav, "全件検索をしました");
-
+		mav.addObject("requestFormPath", "/crud/search/");
 		return selectAll(new SelectMemberForm());
 
 	}
@@ -44,14 +44,14 @@ public class SelectController {
 	 * @return
 	 */
 	@Transactional
-	@RequestMapping(value = "/", params = "selectMemberForm", method = RequestMethod.POST)
+	@RequestMapping(value = "/", params = "selectMemberForm", method = {GET, POST})
 	public ModelAndView selectAll(SelectMemberForm form) {
 
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("memberList", crudService.selictMembers(form));
 		mav.addObject("selectMemberForm", form);
-		mav.addObject("requestFormPath", "/");
+		mav.addObject("requestFormPath", "/crud/search/");
 		addInstanceMessage(mav, "検索をしました");
 
 		mav.setViewName(ResourcePathConst.SELECT_MEMBERS);

@@ -27,7 +27,7 @@ public class UpdateController {
 	public ModelAndView updateInsert(MemberForm form) {
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("requestPath", "crud/update/confirm");
+		mav.addObject("requestPath", "/crud/update/confirm");
 		mav.addObject("member", crudService.selectMember(form));
 		mav.setViewName(ResourcePathConst.INPUT_FORM);
 
